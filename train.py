@@ -100,8 +100,8 @@ def main(game, representation, experiment, steps, n_cpu, render, logging, **kwar
 game = 'zelda'
 representation = 'narrow'
 experiment = None
-steps = 10
-render = True
+steps = 1000
+render = False
 logging = True
 n_cpu = 1
 kwargs = {
