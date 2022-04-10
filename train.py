@@ -94,6 +94,7 @@ def main(game, representation, experiment, steps, n_cpu, render, logging, **kwar
     #     model.learn(total_timesteps=int(steps), tb_log_name=exp_name, callback=callback)
     print('start')
     model.learn(total_timesteps=int(steps), tb_log_name=exp_name, callback=callback)
+    model.save("./runs" + exp_name, False)
     print('end')
 
 ################################## MAIN ########################################
