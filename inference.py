@@ -40,7 +40,7 @@ def infer(game, representation, model_path, **kwargs):
         time.sleep(0.2)
 
 ################################## MAIN ########################################
-game = 'binary'
+game = 'zelda'
 representation = 'narrow'
 model_path = 'models/{}/{}/model_1.pkl'.format(game, representation)
 kwargs = {

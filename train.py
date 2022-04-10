@@ -88,19 +88,22 @@ def main(game, representation, experiment, steps, n_cpu, render, logging, **kwar
         model = PPO2(policy, env, verbose=1, tensorboard_log="./runs")
     else:
         model.set_env(env)
-    if not logging:
-        model.learn(total_timesteps=int(steps), tb_log_name=exp_name)
-    else:
-        model.learn(total_timesteps=int(steps), tb_log_name=exp_name, callback=callback)
+    # if not logging:
+    #     model.learn(total_timesteps=int(steps), tb_log_name=exp_name)
+    # else:
+    #     model.learn(total_timesteps=int(steps), tb_log_name=exp_name, callback=callback)
+    print('start')
+    model.learn(total_timesteps=int(steps), tb_log_name=exp_name, callback=callback)
+    print('end')
 
 ################################## MAIN ########################################
-game = 'binary'
+game = 'zelda'
 representation = 'narrow'
 experiment = None
-steps = 1e8
+steps = 10
 render = False
 logging = True
-n_cpu = 50
+n_cpu = 1
 kwargs = {
     'resume': False
 }
