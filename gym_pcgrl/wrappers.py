@@ -1,9 +1,11 @@
 import gym
 import gym_pcgrl
+from ICM import ICM
 
 import numpy as np
 import math
 import os
+import copy
 
 # clean the input action
 get_action = lambda a: a.item() if hasattr(a, "item") else a
@@ -176,6 +178,9 @@ class Cropped(gym.Wrapper):
         self.size = crop_size
         self.pad = crop_size//2
         self.pad_value = pad_value
+        print(self.size, self.pad)
+        self.icm = ICM(7, 11)
+        self.last_obs = None
 
         self.observation_space = gym.spaces.Dict({})
         for (k,s) in self.env.observation_space.spaces.items():
@@ -186,12 +191,21 @@ class Cropped(gym.Wrapper):
     def step(self, action):
         action = get_action(action)
         obs, reward, done, info = self.env.step(action)
+        
+        if self.last_obs != None:
+            a = obs['pos'][:]
+            a = np.append(a, action)
+            icm_reward = self.icm.predict(self.last_obs['map'], a, obs['map'])
+            reward = reward + icm_reward
+        self.last_obs = copy.copy(obs)
+        
         obs = self.transform(obs)
         return obs, reward, done, info
 
     def reset(self):
         obs = self.env.reset()
         obs = self.transform(obs)
+        self.last_obs = None
         return obs
 
     def transform(self, obs):

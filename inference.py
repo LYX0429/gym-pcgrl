@@ -42,7 +42,7 @@ def infer(game, representation, model_path, **kwargs):
 ################################## MAIN ########################################
 game = 'zelda'
 representation = 'narrow'
-model_path = 'models/{}/{}/model_1.pkl'.format(game, representation)
+model_path = 'zelda_narrow.pkl'.format(game, representation)
 kwargs = {
     'change_percentage': 0.4,
     'trials': 1,
